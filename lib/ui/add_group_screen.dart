@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../models/group.dart';
 
 class AddGroupScreen extends StatefulWidget {

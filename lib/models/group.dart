@@ -8,3 +8,6 @@ class Group {
     required this.color,
   });
 }
+String tasksDescription(){
+  return '0 de 3';
+}

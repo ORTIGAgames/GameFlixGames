@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
           .copyWith(fontWeight: FontWeight.w900),
       ),
     ),
-    home:
+    home: const GroupsScreen(),
   );
 }
 

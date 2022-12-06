@@ -19,21 +19,20 @@ class _GroupsScreenState extends State<GroupsScreen> {
         title: const Text ('que'),
       ),
       body: _groups.isEmpty
-        ?const Center(
+        ? const Center(
            child: Text('There are no Groups'),
-         )
-             :GridView.builder(
-        gridDelegate:const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-      ),
-      itemCount: _groups.length,
-    itemBuilder: (context,index){
-          final group = _groups [index];
-          return _GroupItem(
-    onTap:() => _goToTasks(group),
-    group:group,
-    );
-    },
-    ),
+          ):GridView.builder(
+                gridDelegate:const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                ),
+                itemCount: _groups.length,
+                itemBuilder: (context,index){
+                  final group = _groups [index];
+                  return _GroupItem(
+                    onTap:() => _goToTasks(group),
+                    group:group,
+                  );
+                },
+              ),
   }
 }

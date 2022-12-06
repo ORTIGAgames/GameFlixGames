@@ -23,7 +23,7 @@ class _GroupsScreenState extends State<GroupsScreen> {
            child: Text('There are no Groups'),
          )
              :GridView.builder(
-        gridDelegate:const SilverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate:const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
       ),
       itemCount: _groups.length,

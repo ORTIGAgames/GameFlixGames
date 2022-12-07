@@ -4,6 +4,7 @@ import 'package:objectbox/objectbox.dart';
 
 @Entity()
 class Group {
+  @Id()
   int id = 0;
   String name;
   int color;
@@ -16,12 +17,11 @@ class Group {
     required this.color,
   });
 
-  String tasksDescription(){
+  String tasksDescription() {
     final tasksCompleted = tasks.where((task) => task.completed).length;
-    if(tasks.isEmpty){
+    if (tasks.isEmpty) {
       return '';
     }
     return '$tasksCompleted of ${tasks.length}';
   }
 }
-

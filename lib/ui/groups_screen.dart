@@ -3,7 +3,8 @@ import 'package:gameflix/models/group.dart';
 
 import 'package:gameflix/ui/add_group_screen.dart';
 import 'package:gameflix/ui/tasks_screen.dart';
-import 'package:gameflix/objectbox.g.dart';
+
+import '../objectbox.g.dart';
 
 class GroupsScreen extends StatefulWidget {
   const GroupsScreen({Key? key}) : super(key: key);

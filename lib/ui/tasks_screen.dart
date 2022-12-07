@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gameflix/models/group.dart';
 import 'package:gameflix/models/task.dart';
-import 'package:gameflix/objectbox.g.dart';
+
+import '../objectbox.g.dart';
 
 class TasksScreen extends StatefulWidget {
   const TasksScreen({required this.group, required this.store, Key? key})

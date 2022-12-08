@@ -9,7 +9,7 @@ class Group {
   String name;
   int color;
   int score=0;
-  bool played=false;
+  bool played = false;
 
   @Backlink()
   final tasks = ToMany<Task>();

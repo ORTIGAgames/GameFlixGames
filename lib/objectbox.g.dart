@@ -23,7 +23,7 @@ final _entities = <ModelEntity>[
   ModelEntity(
       id: const IdUid(1, 5677161029218811186),
       name: 'Group',
-      lastPropertyId: const IdUid(3, 4418237872782946412),
+      lastPropertyId: const IdUid(5, 4961951920543460694),
       flags: 0,
       properties: <ModelProperty>[
         ModelProperty(
@@ -40,6 +40,16 @@ final _entities = <ModelEntity>[
             id: const IdUid(3, 4418237872782946412),
             name: 'color',
             type: 6,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(4, 6512522254632686090),
+            name: 'score',
+            type: 6,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(5, 4961951920543460694),
+            name: 'played',
+            type: 1,
             flags: 0)
       ],
       relations: <ModelRelation>[],
@@ -126,10 +136,12 @@ ModelDefinition getObjectBoxModel() {
         },
         objectToFB: (Group object, fb.Builder fbb) {
           final nameOffset = fbb.writeString(object.name);
-          fbb.startTable(4);
+          fbb.startTable(6);
           fbb.addInt64(0, object.id);
           fbb.addOffset(1, nameOffset);
           fbb.addInt64(2, object.color);
+          fbb.addInt64(3, object.score);
+          fbb.addBool(4, object.played);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -140,8 +152,12 @@ ModelDefinition getObjectBoxModel() {
           final object = Group(
               name: const fb.StringReader(asciiOptimization: true)
                   .vTableGet(buffer, rootOffset, 6, ''),
-              color: const fb.Int64Reader().vTableGet(buffer, rootOffset, 8, 0))
-            ..id = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
+              color: const fb.Int64Reader().vTableGet(buffer, rootOffset, 8, 0),
+              played: const fb.BoolReader()
+                  .vTableGet(buffer, rootOffset, 12, false))
+            ..id = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0)
+            ..score =
+                const fb.Int64Reader().vTableGet(buffer, rootOffset, 10, 0);
           InternalToManyAccess.setRelInfo(
               object.tasks,
               store,
@@ -198,6 +214,12 @@ class Group_ {
 
   /// see [Group.color]
   static final color = QueryIntegerProperty<Group>(_entities[0].properties[2]);
+
+  /// see [Group.score]
+  static final score = QueryIntegerProperty<Group>(_entities[0].properties[3]);
+
+  /// see [Group.played]
+  static final played = QueryBooleanProperty<Group>(_entities[0].properties[4]);
 }
 
 /// [Task] entity fields to define ObjectBox queries.

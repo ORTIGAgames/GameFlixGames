@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/group.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class AddGroupScreen extends StatefulWidget {
   const AddGroupScreen({Key? key}) : super(key: key);
@@ -7,39 +8,31 @@ class AddGroupScreen extends StatefulWidget {
   @override
   State<AddGroupScreen> createState() => _AddGroupScreenState();
 }
-class SwitchScreen extends StatefulWidget {
-  @override
-  SwitchClass createState() => new SwitchClass();
-}
-
-class SwitchClass extends State {
-  bool isSwitched = false;
-
-  void toggleSwitch(bool value) {
-    if (isSwitched == false) {
-      setState(() {
-        isSwitched = true;
-      });
-      print('Switch Button is ON');
-    }
-    else {
-      setState(() {
-        isSwitched = false;
-      });
-      print('Switch Button is OFF');
-    }
-  }
-}
 
   class _AddGroupScreenState extends State<AddGroupScreen> {
+  bool isPlayed = false;
   Color selectedColor = Colors.primaries.first;
   final textController = TextEditingController();
 
   String? errorMessage;
 
+  void toggleSwitch(bool value) {
+    if (isPlayed == false) {
+      setState(() {
+        isPlayed = true;
+      });
+      print('Switch Button is ON');
+    }
+    else {
+      setState(() {
+        isPlayed= false;
+      });
+      print('Switch Button is OFF');
+    }
+  }
+
   void _onSave() {
     final name = textController.text.trim();
-    bool isplayed = true;
     if (name.isEmpty) {
       setState(() {
         errorMessage = 'Name is required';
@@ -50,7 +43,7 @@ class SwitchClass extends State {
         errorMessage = null;
       });
     }
-    final result = Group(name: name, color: selectedColor.value, played: isplayed);
+    final result = Group(name: name, color: selectedColor.value, played: isPlayed);
     Navigator.of(context).pop(result);
   }
 
@@ -60,7 +53,7 @@ class SwitchClass extends State {
       contentPadding: EdgeInsets.zero,
       insetPadding: EdgeInsets.zero,
       content: SizedBox(
-        height: MediaQuery.of(context).size.height / 1.5,
+        height: MediaQuery.of(context).size.height / 1.2,
         width: MediaQuery.of(context).size.width,
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -149,7 +142,7 @@ class SwitchClass extends State {
                     Padding(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 20,
-                        vertical: 15,
+                        vertical: 10,
                       ),
                       child: MaterialButton(
                         color: Colors.blue,
@@ -165,19 +158,49 @@ class SwitchClass extends State {
                         onPressed: _onSave,
                       ),
                     ),
-                  ],
+                    ListTile(
+                      title: Row(
+                        children: <Widget>[
+                          Padding(padding: const EdgeInsets.symmetric(
+                            horizontal: 70,
+                            vertical: 10,
+                          ),
+                            child: RatingBar.builder(
+                              initialRating: 3,
+                              minRating: 1,
+                              direction: Axis.horizontal,
+                              allowHalfRating: true,
+                              itemCount: 5,
+                              itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                              itemBuilder: (context, _) => Icon(
+                                Icons.star,
+                                color: Colors.amber,
+                              ),
+                              onRatingUpdate: (rating) {
+                                print(rating);
+                              },
+                            ),
+                          ),
+                          Padding(padding: const EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 10,
+                          ),
+                            child: Switch(
+                              onChanged: toggleSwitch,
+                              value: isPlayed,
+                              activeColor: Colors.blue,
+                              activeTrackColor: Colors.yellow,
+                              inactiveThumbColor: Colors.redAccent,
+                              inactiveTrackColor: Colors.orange,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                ],
                 ),
               ),
             ),
-                  Expanded(child: Switch(
-                    onChanged: toggleSwitch,
-                    value: isSwitched,
-                    activeColor: Colors.blue,
-                    activeTrackColor: Colors.yellow,
-                    inactiveThumbColor: Colors.redAccent,
-                    inactiveTrackColor: Colors.orange,
-
-  ))
           ],
         ),
       ),

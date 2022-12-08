@@ -7,14 +7,39 @@ class AddGroupScreen extends StatefulWidget {
   @override
   State<AddGroupScreen> createState() => _AddGroupScreenState();
 }
+class SwitchScreen extends StatefulWidget {
+  @override
+  SwitchClass createState() => new SwitchClass();
+}
 
-class _AddGroupScreenState extends State<AddGroupScreen> {
+class SwitchClass extends State {
+  bool isSwitched = false;
+
+  void toggleSwitch(bool value) {
+    if (isSwitched == false) {
+      setState(() {
+        isSwitched = true;
+      });
+      print('Switch Button is ON');
+    }
+    else {
+      setState(() {
+        isSwitched = false;
+      });
+      print('Switch Button is OFF');
+    }
+  }
+}
+
+  class _AddGroupScreenState extends State<AddGroupScreen> {
   Color selectedColor = Colors.primaries.first;
   final textController = TextEditingController();
+
   String? errorMessage;
 
   void _onSave() {
     final name = textController.text.trim();
+    bool isplayed = true;
     if (name.isEmpty) {
       setState(() {
         errorMessage = 'Name is required';
@@ -25,7 +50,7 @@ class _AddGroupScreenState extends State<AddGroupScreen> {
         errorMessage = null;
       });
     }
-    final result = Group(name: name, color: selectedColor.value);
+    final result = Group(name: name, color: selectedColor.value, played: isplayed);
     Navigator.of(context).pop(result);
   }
 
@@ -144,9 +169,20 @@ class _AddGroupScreenState extends State<AddGroupScreen> {
                 ),
               ),
             ),
+                  Expanded(child: Switch(
+                    onChanged: toggleSwitch,
+                    value: isSwitched,
+                    activeColor: Colors.blue,
+                    activeTrackColor: Colors.yellow,
+                    inactiveThumbColor: Colors.redAccent,
+                    inactiveTrackColor: Colors.orange,
+
+  ))
           ],
         ),
       ),
     );
   }
 }
+
+

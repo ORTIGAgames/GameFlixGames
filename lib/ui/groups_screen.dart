@@ -73,7 +73,7 @@ class _GroupsScreenState extends State<GroupsScreen> {
       ),
       body: _groups.isEmpty
           ? const Center(
-        child: Text('There are no Groups'),
+        child: Text('There are no games yet'),
       )
           : GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

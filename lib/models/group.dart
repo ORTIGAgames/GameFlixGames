@@ -8,6 +8,8 @@ class Group {
   int id = 0;
   String name;
   int color;
+  int score=0;
+  bool played=false;
 
   @Backlink()
   final tasks = ToMany<Task>();
@@ -15,6 +17,7 @@ class Group {
   Group({
     required this.name,
     required this.color,
+    required this.played,
   });
 
   String tasksDescription() {

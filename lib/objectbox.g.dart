@@ -44,7 +44,7 @@ final _entities = <ModelEntity>[
         ModelProperty(
             id: const IdUid(4, 6512522254632686090),
             name: 'score',
-            type: 6,
+            type: 8,
             flags: 0),
         ModelProperty(
             id: const IdUid(5, 4961951920543460694),
@@ -140,7 +140,7 @@ ModelDefinition getObjectBoxModel() {
           fbb.addInt64(0, object.id);
           fbb.addOffset(1, nameOffset);
           fbb.addInt64(2, object.color);
-          fbb.addInt64(3, object.score);
+          fbb.addFloat64(3, object.score);
           fbb.addBool(4, object.played);
           fbb.finish(fbb.endTable());
           return object.id;
@@ -154,10 +154,10 @@ ModelDefinition getObjectBoxModel() {
                   .vTableGet(buffer, rootOffset, 6, ''),
               color: const fb.Int64Reader().vTableGet(buffer, rootOffset, 8, 0),
               played: const fb.BoolReader()
-                  .vTableGet(buffer, rootOffset, 12, false))
-            ..id = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0)
-            ..score =
-                const fb.Int64Reader().vTableGet(buffer, rootOffset, 10, 0);
+                  .vTableGet(buffer, rootOffset, 12, false),
+              score:
+                  const fb.Float64Reader().vTableGet(buffer, rootOffset, 10, 0))
+            ..id = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
           InternalToManyAccess.setRelInfo(
               object.tasks,
               store,
@@ -216,7 +216,7 @@ class Group_ {
   static final color = QueryIntegerProperty<Group>(_entities[0].properties[2]);
 
   /// see [Group.score]
-  static final score = QueryIntegerProperty<Group>(_entities[0].properties[3]);
+  static final score = QueryDoubleProperty<Group>(_entities[0].properties[3]);
 
   /// see [Group.played]
   static final played = QueryBooleanProperty<Group>(_entities[0].properties[4]);

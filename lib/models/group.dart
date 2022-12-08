@@ -8,7 +8,7 @@ class Group {
   int id = 0;
   String name;
   int color;
-  int score=0;
+  double score = 0.0;
   bool played = false;
 
   @Backlink()
@@ -18,6 +18,7 @@ class Group {
     required this.name,
     required this.color,
     required this.played,
+    required this.score,
   });
 
   String tasksDescription() {

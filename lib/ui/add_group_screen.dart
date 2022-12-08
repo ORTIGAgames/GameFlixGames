@@ -11,6 +11,7 @@ class AddGroupScreen extends StatefulWidget {
 
   class _AddGroupScreenState extends State<AddGroupScreen> {
   bool isPlayed = false;
+  double Score = 0;
   Color selectedColor = Colors.primaries.first;
   final textController = TextEditingController();
 
@@ -21,13 +22,11 @@ class AddGroupScreen extends StatefulWidget {
       setState(() {
         isPlayed = true;
       });
-      print('Switch Button is ON');
     }
     else {
       setState(() {
         isPlayed= false;
       });
-      print('Switch Button is OFF');
     }
   }
 
@@ -43,7 +42,7 @@ class AddGroupScreen extends StatefulWidget {
         errorMessage = null;
       });
     }
-    final result = Group(name: name, color: selectedColor.value, played: isPlayed);
+    final result = Group(name: name, color: selectedColor.value, played: isPlayed, score: Score);
     Navigator.of(context).pop(result);
   }
 
@@ -67,7 +66,7 @@ class AddGroupScreen extends StatefulWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Icon(
-                      Icons.group,
+                      Icons.videogame_asset,
                       size: 60,
                     ),
                     Padding(
@@ -78,13 +77,39 @@ class AddGroupScreen extends StatefulWidget {
                         style: const TextStyle(
                             fontSize: 28, fontWeight: FontWeight.bold),
                         decoration: const InputDecoration(
-                          hintText: 'Group name',
+                          hintText: 'Videogame Name',
                           border: InputBorder.none,
                         ),
                       ),
                     ),
                   ],
                 ),
+              ),
+            ),
+            ListTile(
+              title: Row(
+                children: <Widget>[
+                  const Padding(padding: EdgeInsets.symmetric(
+                    horizontal: 0,
+                    vertical: 0,
+                  ),
+                    child:
+                    Text('Played', style: TextStyle(fontSize: 20),),
+                  ),
+                  Padding(padding: const EdgeInsets.symmetric(
+                    horizontal: 0,
+                    vertical: 0,
+                  ),
+                    child: Switch(
+                      onChanged: toggleSwitch,
+                      value: isPlayed,
+                      activeColor: Colors.blue,
+                      activeTrackColor: Colors.yellow,
+                      inactiveThumbColor: Colors.redAccent,
+                      inactiveTrackColor: Colors.orange,
+                    ),
+                  ),
+                ],
               ),
             ),
             Expanded(
@@ -96,7 +121,7 @@ class AddGroupScreen extends StatefulWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     SizedBox(
-                      height: 20,
+                      height: 10,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Text(
@@ -108,7 +133,7 @@ class AddGroupScreen extends StatefulWidget {
                     const Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: 20,
-                        vertical: 15,
+                        vertical: 20,
                       ),
                       child: Text('SELECT COLOR'),
                     ),
@@ -139,6 +164,27 @@ class AddGroupScreen extends StatefulWidget {
                         },
                       ),
                     ),
+                    Padding(padding: const EdgeInsets.symmetric(
+                      horizontal: 80,
+                      vertical: 0,
+                    ),
+                      child:
+                      RatingBar.builder(
+                        initialRating: 3,
+                        minRating: 1,
+                        direction: Axis.horizontal,
+                        allowHalfRating: true,
+                        itemCount: 5,
+                        itemPadding: const EdgeInsets.symmetric(horizontal: 0),
+                        itemBuilder: (context, _) => const Icon(
+                          Icons.star,
+                          color: Colors.amber,
+                        ),
+                        onRatingUpdate: (rating) {
+                          Score = rating;
+                        },
+                      ),
+                    ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 20,
@@ -146,58 +192,19 @@ class AddGroupScreen extends StatefulWidget {
                       ),
                       child: MaterialButton(
                         color: Colors.blue,
+                        onPressed: _onSave,
                         child: const Padding(
                           padding: EdgeInsets.all(15),
                           child: Text(
-                            'Create Group',
+                            'Create Videogame',
                             style: TextStyle(
                               color: Colors.white,
                             ),
                           ),
                         ),
-                        onPressed: _onSave,
                       ),
                     ),
-                    ListTile(
-                      title: Row(
-                        children: <Widget>[
-                          Padding(padding: const EdgeInsets.symmetric(
-                            horizontal: 70,
-                            vertical: 10,
-                          ),
-                            child: RatingBar.builder(
-                              initialRating: 3,
-                              minRating: 1,
-                              direction: Axis.horizontal,
-                              allowHalfRating: true,
-                              itemCount: 5,
-                              itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                              itemBuilder: (context, _) => Icon(
-                                Icons.star,
-                                color: Colors.amber,
-                              ),
-                              onRatingUpdate: (rating) {
-                                print(rating);
-                              },
-                            ),
-                          ),
-                          Padding(padding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 10,
-                          ),
-                            child: Switch(
-                              onChanged: toggleSwitch,
-                              value: isPlayed,
-                              activeColor: Colors.blue,
-                              activeTrackColor: Colors.yellow,
-                              inactiveThumbColor: Colors.redAccent,
-                              inactiveTrackColor: Colors.orange,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                ],
+                  ],
                 ),
               ),
             ),

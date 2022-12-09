@@ -69,7 +69,7 @@ class _GroupsScreenState extends State<GroupsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('TODO List'),
+        title: const Text('GAMEFLIXER'),
       ),
       body: _groups.isEmpty
           ? const Center(
@@ -90,7 +90,7 @@ class _GroupsScreenState extends State<GroupsScreen> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
-        label: const Text('Add group'),
+        label: const Text('Add new game'),
         onPressed: _addGroup,
       ),
     );
